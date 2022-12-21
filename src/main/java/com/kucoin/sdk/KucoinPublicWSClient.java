@@ -115,5 +115,13 @@ public interface KucoinPublicWSClient {
      */
     String onSnapshot(KucoinAPICallback<KucoinEvent<SnapshotEvent>> callback, String target);
 
-
+    /**
+     * Subscribe to this topic to get K-Line data.
+     *
+     * @param callback
+     * @param symbol
+     * @param type 	1min, 3min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 8hour, 12hour, 1day, 1week
+     * @return The subscription UUID, or null if sending failed.
+     */
+    String onKlines(KucoinAPICallback<KucoinEvent<KlinesChangeEvent>> callback, String symbol, String type);	
 }

@@ -139,5 +139,12 @@ public class KucoinPublicWSClientImpl extends BaseWebsocketImpl implements Kucoi
         return subscribe(topic, false, true);
     }
 
-
+    @Override
+    public String onKlines(KucoinAPICallback<KucoinEvent<KlinesChangeEvent>> callback, String symbol, String type) {
+        if (callback != null) {
+            this.listener.setKlinesCallback(callback);
+        }
+        String topic = APIConstants.API_KLINES_PREFIX + symbol +"_"+type;
+        return subscribe(topic, false, true);
+    }
 }

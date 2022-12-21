@@ -6,6 +6,7 @@ package com.kucoin.sdk;
 import com.kucoin.sdk.model.enums.ApiKeyVersionEnum;
 import com.kucoin.sdk.model.enums.PublicChannelEnum;
 import com.kucoin.sdk.rest.request.OrderCreateApiRequest;
+import com.kucoin.sdk.rest.response.KlinesResponse;
 import com.kucoin.sdk.rest.response.OrderCreateResponse;
 import com.kucoin.sdk.rest.response.TickerResponse;
 import com.kucoin.sdk.websocket.event.*;
@@ -51,6 +52,21 @@ public class KucoinPublicWSClientTest {
         kucoinPublicWSClient.close();
     }
 
+    @Test
+    public void onKlines() throws Exception {
+        AtomicReference<KlinesResponse> event = new AtomicReference<>();
+        CountDownLatch gotEvent = new CountDownLatch(1);
+
+        kucoinPublicWSClient.onKlines(response -> {
+            event.set(response.getData());
+            kucoinPublicWSClient.unsubscribe(PublicChannelEnum.KLINES, "BTC-USDT");
+            gotEvent.countDown();
+        }, "BTC-USDT", "1min");
+
+        assertTrue(gotEvent.await(60, TimeUnit.SECONDS));
+        System.out.println(event.get());
+    }
+    
     @Test
     public void onTicker() throws Exception {
         AtomicReference<TickerResponse> event = new AtomicReference<>();

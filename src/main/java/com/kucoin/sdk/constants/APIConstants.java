@@ -35,4 +35,6 @@ public class APIConstants {
     public static final String API_ADVANCED_ORDER_TOPIC_PREFIX = "/spotMarket/advancedOrders";
     public static final String API_ORDER_TOPIC_PREFIX = "/spotMarket/tradeOrders";
     public static final String API_SNAPSHOT_PREFIX = "/market/snapshot:";
+    
+    public static final String API_KLINES_PREFIX = "/market/candles:";
 }

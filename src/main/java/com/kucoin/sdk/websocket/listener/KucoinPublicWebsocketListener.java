@@ -38,6 +38,7 @@ public class KucoinPublicWebsocketListener extends WebSocketListener {
     private KucoinAPICallback<KucoinEvent<Level3ChangeEvent>> level3Callback = new PrintCallback<>();
     private KucoinAPICallback<KucoinEvent<Level3Event>> level3V2Callback = new PrintCallback<>();
     private KucoinAPICallback<KucoinEvent<SnapshotEvent>> snapshotCallback = new PrintCallback<>();
+    private KucoinAPICallback<KucoinEvent<KlinesChangeEvent>> klinesCallback = new PrintCallback<>();
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
@@ -89,6 +90,10 @@ public class KucoinPublicWebsocketListener extends WebSocketListener {
             KucoinEvent<Level2Event> kucoinEvent = deserialize(text, new TypeReference<KucoinEvent<Level2Event>>() {
             });
             level2Depth50Callback.onResponse(kucoinEvent);
+        } else if (topic.contains(API_KLINES_PREFIX)) {
+            KucoinEvent<KlinesChangeEvent> kucoinEvent = deserialize(text, new TypeReference<KucoinEvent<KlinesChangeEvent>>() {
+            });
+            klinesCallback.onResponse(kucoinEvent);
         }
     }
 

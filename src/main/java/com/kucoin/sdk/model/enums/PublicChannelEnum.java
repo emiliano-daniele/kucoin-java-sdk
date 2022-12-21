@@ -27,7 +27,9 @@ public enum PublicChannelEnum {
 
     LEVEL3_V2(APIConstants.API_LEVEL3_V2_TOPIC_PREFIX),
 
-    SNAPSHOT(APIConstants.API_SNAPSHOT_PREFIX);
+    SNAPSHOT(APIConstants.API_SNAPSHOT_PREFIX),
+   
+    KLINES(APIConstants.API_KLINES_PREFIX);
 
 
     private String topicPrefix;
